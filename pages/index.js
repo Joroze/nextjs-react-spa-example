@@ -1,10 +1,19 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import Head from 'next/head';
 import Image from 'next/image';
+import { useEffect } from 'react';
 import styles from '../styles/Home.module.css';
 
 export default function Home() {
-  const { user, isAuthenticated, isLoading } = useAuth0();
+  const {
+    user, isAuthenticated, isLoading, loginWithRedirect, logout, getAccessTokenSilently,
+  } = useAuth0();
+
+  useEffect(() => {
+    getAccessTokenSilently().catch((error) => {
+      console.log(error);
+    });
+  }, []);
 
   console.log(user, isAuthenticated, isLoading);
   if (isLoading) {
@@ -20,11 +29,26 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        {user && (
-        <div>
-          User
-        </div>
-        )
+        {user
+          ? (
+            <div>
+              <div>
+                {user.name}
+              </div>
+              <div>
+                {user.email}
+              </div>
+              <button onClick={logout}>Sign Out</button>
+            </div>
+          )
+          : (
+            <div>
+              <div>
+                Not logged in.
+              </div>
+              <button onClick={loginWithRedirect}>Login</button>
+            </div>
+          )
 }
       </main>
 
