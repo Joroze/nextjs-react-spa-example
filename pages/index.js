@@ -17,7 +17,11 @@ export default function Home() {
 
   console.log(user, isAuthenticated, isLoading);
   if (isLoading) {
-    return <div>Loading ...</div>;
+    return (
+      <main className={styles.main}>
+        <div>Loading ...</div>
+      </main>
+    );
   }
 
   return (
