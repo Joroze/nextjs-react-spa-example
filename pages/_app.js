@@ -1,10 +1,7 @@
 import '../styles/globals.css';
 import { Auth0Provider } from '@auth0/auth0-react';
-import { useEffect } from 'react';
 
 function MyApp({ Component, pageProps }) {
-  console.log('hi');
-
   return (
     <Auth0Provider
       domain="joroze.auth0.com"
